@@ -16,3 +16,9 @@
 - Draw a shape in canvas.
 - Draw an image in canvas.
 - JS events keydown, click, etc.
+
+# Curs 3
+- Client & Server
+- Node JS, NPM
+- Websockets
+- Create/Join Game
