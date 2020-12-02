@@ -21,4 +21,11 @@
 - Client & Server
 - Node JS, NPM
 - Websockets
-- Create/Join Game
+- Create
+
+# Curs 4
++ Player Backend Movement
++ Game List
++ Join Game
++ Remove game from list when there are two players
+1/2 - Game Over on Disconnect
