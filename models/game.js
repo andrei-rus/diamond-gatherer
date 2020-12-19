@@ -24,12 +24,18 @@ class Game {
       this.winner = this.players[0].score > this.players[1].score ? 'space-ranger' : 'pink-lady';
       return;
     }
+    if ( this.inProgress() && (this.players[0].hp === 0 || this.players[1].hp === 0)) {
+      this.over = true;
+      this.winner = this.players[0].hp > 0 ? 'space-ranger' : 'pink-lady';
+      return;
+    }
     this.players.forEach(function (player) {
       player.update();
     })
     this.bullets.forEach((bullet, index) => {
       if (bullet.distance <= 0) {
         delete this.bullets[index];
+        delete server.bullets[bullet.player.socketId];
       } else {
         bullet.update();
       }

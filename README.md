@@ -40,7 +40,7 @@
 + Attack functionality
 
 # Curs 6
-- Single Bullet per player
-- HP
-- Bullet collision with opponent
-- Game Over when a player dies
++ Single Bullet per player
++ HP
++ Bullet collision with opponent
++ Game Over when a player dies

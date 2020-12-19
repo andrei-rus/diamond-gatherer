@@ -102,6 +102,7 @@ io.on('connection', function(socket) {
       delete games[gameId];
       playersToRemoveIds.forEach(function (playerToRemoveId) {
         delete players[playerToRemoveId];
+        delete bullets[playerToRemoveId];
       })
       io.to(gameId).emit('game-over', 'player-disconnected', gameId);
     }
@@ -117,8 +118,12 @@ io.on('connection', function(socket) {
       if (games[players[socket.id].gameId].players.length != 2) {
         return;
       }
+      if (bullets[socket.id]) {
+        return;
+      }
+      bullets[socket.id] = new Bullet(players[socket.id]);
       const game = games[players[socket.id].gameId];
-      game.bullets.push(new Bullet(players[socket.id]));
+      game.bullets.push(bullets[socket.id]);
     }
   })
 })
@@ -136,12 +141,14 @@ function gameLoop(roomId) {
       delete games[roomId];
       playersToRemoveIds.forEach(function (playerToRemoveId) {
         delete players[playerToRemoveId];
+        delete bullets[playerToRemoveId];
       })
       io.to(roomId).emit('game-over', game.winner + '-won', roomId);
     } else {
       const objectsForDraw = [];
       game.players.forEach(function (player) {
         objectsForDraw.push(player.forDraw());
+        objectsForDraw.push(player.hpForDraw());
       })
       game.diamonds.forEach(function (diamond) {
         objectsForDraw.push(diamond.forDraw());
@@ -172,3 +179,4 @@ const bullets = {};
 
 module.exports.gameLoop = gameLoop;
 module.exports.games = games;
+module.exports.bullets = bullets;
